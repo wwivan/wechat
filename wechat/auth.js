@@ -2,8 +2,11 @@
 const sha1 = require("sha1")
 const config = require('../config')
 const {
-  getUserDataAsync
+  getUserDataAsync,
+  parseXmlAsync,
+  formatMessage
 } = require("../utils/tool")
+const reply = require("../reply")
 module.exports = () => {
   return async (req, res, next) => {
     const {
@@ -34,7 +37,11 @@ module.exports = () => {
       console.log(req.query)
 
       const xmlData = await getUserDataAsync(req)
-      console.log(xmlData)
+      const jsData = await parseXmlAsync(xmlData)
+      const message = formatMessage(jsData)
+      const replyMessage = await reply(message);
+      res.send(replyMessage)
+      console.log(message)
       res.end("")
     } else {
       res.end("error")

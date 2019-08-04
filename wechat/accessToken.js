@@ -93,11 +93,11 @@ class Wechat {
     return data.expires_in > Date.now()
   }
   fetchAccessToken() {
-    if(this.access_token&& this.expires_in && this.isValidAccessToken(this)){
+    if (this.access_token && this.expires_in && this.isValidAccessToken(this)) {
       //说明保存过，并且有效
       return Promise.resolve({
-        access_token:this.access_token,
-        expires_in:this.expires_in
+        access_token: this.access_token,
+        expires_in: this.expires_in
       })
     }
     return this.readAccessToken()
@@ -129,6 +129,15 @@ class Wechat {
         return Promise.resolve(res)
       })
   }
+
+  createMenu(){
+    return new Promise(async (resolve,reject)=>{
+      //获取access_token
+      const data = await this.fetchAccessToken();
+      const url =``
+
+    })
+  }
 }
 
-const wx = new Wechat()
+module.exports = Wechat
